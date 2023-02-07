@@ -16,9 +16,10 @@ class ProductManager {
 
     constructor(products){
         this.products = new Array();
-        this.productsDirPath = "./Jsons"
+        this.productsId
+        this.productsDirPath = "./src/Json"
         this.productsFilePath = this.productsDirPath + "/productos.json"
-        this.fileSystem = require("fs");
+        this.fileSystem = require("fs")
     }
 
     fsPreaparandoDirecttorios = async ()=>{
@@ -83,13 +84,11 @@ class ProductManager {
 
             this.products.map(async(elem)=>{
                 if(elem.id === id && id > 0){
-
-                    console.log("EL elemento obtenido es...");
-                    console.log(elem);
-                                        
+                   this.productsId = elem                                       
                 }
             })
             
+            return this.productsId
         } catch (error) {
             console.error(`Error no se econtro producto, detalle del error: ${error}`);
             throw Error(`Error no se econtro producto, detalle del error: ${error}`);
@@ -182,9 +181,8 @@ class ProductManager {
 
 }
 
-let productos = new ProductManager()
+module.exports = ProductManager
 
-// console.log(productos.getProduct())
 
 // productos.addProduct("Iphone","Iphone 14 plus 128GB","700","https://www.ventasrosario.com.ar/wp-content/uploads/2022/09/61XO4bORHUL._AC_SL1500_.jpg","000000000001",40)
 
