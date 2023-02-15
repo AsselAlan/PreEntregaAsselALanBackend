@@ -1,13 +1,17 @@
 
+import fs from "fs"
+
 class Producto {
-    constructor(id,titulo,descripcion,price,url,codeBars,sotck){
+    constructor(id,title,descripction,code,price,status,sotck,category,thumbnails){
         this.id = id,
-        this.titulo = titulo,
-        this.descripcion = descripcion,
+        this.title = title,
+        this.descripction = descripction,
+        this.code = code,
         this.price = price,
-        this.url = url,
-        this.code = codeBars,
-        this.sotck = sotck
+        this.status = status, 
+        this.sotck = sotck,
+        this.category = category,
+        this.thumbnails = thumbnails
     }
 }
 
@@ -19,7 +23,7 @@ class ProductManager {
         this.productsId
         this.productsDirPath = "./src/Json"
         this.productsFilePath = this.productsDirPath + "/productos.json"
-        this.fileSystem = require("fs")
+        this.fileSystem = fs
     }
 
     fsPreaparandoDirecttorios = async ()=>{
@@ -51,12 +55,20 @@ class ProductManager {
     }
     }
 
-    static contador = 0
+    idUltProducto = async()=>{
+        await this.getProduct();
+
+        let idUltProducto = this.products.length
     
-    addProduct = async (titulo,descripcion,price,url,codeBars,sotck)=>{
+        return idUltProducto
+    }
+    
+    addProduct = async (title,descripction,code,price,status,sotck,category,thumbnails)=>{
+        let idUltProducto = await this.idUltProducto()
+
+        let contador = idUltProducto + 1
         
-        ProductManager.contador++
-        let productoNuevo = new Producto(ProductManager.contador,titulo,descripcion,price,url,codeBars,sotck)
+        let productoNuevo = new Producto(contador,title,descripction,code,price,status,sotck,category,thumbnails)
         console.log('Creando producto nuevo:');
         console.log(productoNuevo);
         
@@ -181,7 +193,7 @@ class ProductManager {
 
 }
 
-module.exports = ProductManager
+export default ProductManager
 
 
 // productos.addProduct("Iphone","Iphone 14 plus 128GB","700","https://www.ventasrosario.com.ar/wp-content/uploads/2022/09/61XO4bORHUL._AC_SL1500_.jpg","000000000001",40)
