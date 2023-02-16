@@ -53,19 +53,52 @@ class cartManager {
     
         return idUltCart
     }
-    
-    addProductCart = async (product)=>{
-        let idUltCart = await this.idUltCart()
 
-        let contador = idUltCart + 1
-        
-        let cartNuevo = new Cart(contador,product)
-        console.log('Creando cart nuevo:');
-        console.log(cartNuevo);
-        
+    addProductCart = async (id,producto)=>{
+     
         try {
+            
             await this.fsPreaparandoDirecttorios();
             await this.getCarts();
+
+        if(this.carts.length > id){
+
+            this.carts.map((elem)=>{
+                if(elem.id === id){
+                    elem.product.map((elemt)=>{
+                        if(elemt.prodictId === producto.prodictId){
+                            elemt.quantity += 1
+                        }else{
+                            elem.product.push(producto)
+                            console.log(`Producto ${producto.prodictId} añadido con exito`);
+                        }
+                    })
+                    
+                }
+            })
+        }else {console.error(`El cart ${id} no existe`)}
+
+            await this.fileSystem.promises.writeFile(this.cartsFilePath, JSON.stringify(this.carts));
+        } catch (error) {
+            console.error(`Error creando cart nuevo: ${JSON.stringify(producto)}, detalle del error: ${error}`);
+            throw Error(`Error creando cart nuevo: ${JSON.stringify(producto)}, detalle del error: ${error}`);
+        }
+    }
+    
+    addNewCart = async (producto)=>{
+
+        try {
+            
+            await this.fsPreaparandoDirecttorios();
+            await this.getCarts();
+
+            let idUltCart = await this.idUltCart()
+
+            let contador = idUltCart + 1
+            
+            let cartNuevo = new Cart(contador,producto)
+            console.log('Creando cart nuevo:');
+            console.log(cartNuevo);
 
             this.carts.push(cartNuevo);
             console.log("Lista actualizada de carts: ");
@@ -98,102 +131,10 @@ class cartManager {
         }
     }
 
-    // updateProduct = async (id, param, valor)=>{
-
-    //     try {
-
-            
-    //         await this.fsPreaparandoDirecttorios();
-    //         await this.getProduct();
-
-    //         this.products.map(async(elem)=>{
-    //             if(elem.id === id && id > 0){
-    //                 console.log("Producto a actualizar :");
-    //                 console.log(this.products[id-1]);
-
-    //                 let keys = Object.keys(this.products[id-1])
-                    
-    //                 keys.map((elem)=>{
-    //                     if(elem===param){
-                            
-    //                         if(elem==="titulo"){
-    //                             this.products[id-1].titulo=valor
-    //                         }
-    //                         if(elem==="descripcion"){
-    //                             this.products[id-1].descripcion=valor
-    //                         }
-    //                         if(elem==="price"){
-    //                             this.products[id-1].price=valor
-    //                         }
-    //                         if(elem==="url"){
-    //                             this.products[id-1].url=valor
-    //                         }
-    //                         if(elem==="code"){
-    //                             this.products[id-1].code=valor
-    //                         }
-    //                         if(elem==="sotck"){
-    //                             this.products[id-1].code=sotck
-    //                         }
-    //                     }
-    //                 })                        
-    //             }
-    //         })
-
-    //         console.log("Producto actualizado");
-    //         console.log(this.products[id-1]);
-    //         console.log("Lista actualizada:");
-    //         console.log(this.products);
-
-
-    //         await this.fileSystem.promises.writeFile(this.productsFilePath, JSON.stringify(this.products));
-
-            
-    //     } catch (error) {
-    //         console.error(`Error no se econtro producto, detalle del error: ${error}`);
-    //         throw Error(`Error no se econtro producto, detalle del error: ${error}`);
-    //     }
-    // }
-
-    // deleteProduct= async(id)=>{
-    //     try {
-    //         await this.fsPreaparandoDirecttorios();
-    //         await this.getProduct();
-
-    //         console.log("Lista actual :");console.log(this.products);
-
-    //         this.products.map(async(elem)=>{
-    //             if(elem.id === id && id > 0){
-
-    //                 console.log("Eliminando...");
-    //                 console.log(elem);
-    //                 this.products.splice( (id-1) , 1)
-    
-    //                 console.log("Lista Nueva:");
-    //                 console.log(this.products);
-                    
-    //                 await this.fileSystem.promises.writeFile(this.productsFilePath, JSON.stringify(this.products));
-                    
-    //             }
-    //         })
-            
-    //     } catch (error) {
-    //         console.error(`Error eliminando producto: ${this.products[id-1]}, detalle del error: ${error}`);
-    //         throw Error(`Error eliminando producto: ${this.products[id-1]}, detalle del error: ${error}`);
-    //     }
-    // }
-
 }
 
 export default cartManager
 
-
-// productos.addProduct("Iphone","Iphone 14 plus 128GB","700","https://www.ventasrosario.com.ar/wp-content/uploads/2022/09/61XO4bORHUL._AC_SL1500_.jpg","000000000001",40)
-
-// console.log(productos.getProductById(1))
-
-// console.log(productos.updateProduct(1,"titulo","Samsung"))
-
-// console.log(productos.deleteProduct(1))
 
 
 

@@ -22,7 +22,17 @@ routerCarts.get("/",async(req,res)=>{
 routerCarts.post("/", async (req,res)=>{
     let cartBody = req.body
 
-    await cart.addProductCart(cartBody.products)
+
+    await cart.addNewCart(cartBody.products)
+
+    res.send({status:"Success", mesagge:`Producto ${cartBody.products.prodictId} añadido con exito a un nuevo carrito`})
+})
+
+routerCarts.post("/:cid", async (req,res)=>{
+    let idCart = Number(req.params.cid)
+    let cartBody = req.body
+
+    await cart.addProductCart(idCart,cartBody.products)
 
     res.send({status:"Success", mesagge:`Producto ${cartBody.products.prodictId} añadido con exito`})
 })

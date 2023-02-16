@@ -36,4 +36,18 @@ routerProductos.post("/", async (req,res)=>{
     res.send({status:"Success", mesagge:`Producto ${product.title} añadido con exito`})
 })
 
+routerProductos.delete("/:pid", async (req,res)=>{
+    await productos.deleteProduct(Number(req.params.pid))
+}) 
+
+routerProductos.put("/:pid", async (req,res)=>{
+    let productoId = Number(req.params.pid) 
+    let update = req.body 
+    let updateValue = Object.values(update)
+    let keyUpdate = Object.keys(update)
+
+    await productos.updateProduct(productoId,keyUpdate[0],updateValue[0])
+    res.send({status:"Success", mesagge:`Producto ${update.title} actualizado`})
+})
+
 export default routerProductos;

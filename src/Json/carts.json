@@ -1,1 +1,1 @@
-[{"id":1,"product":{"prodictId":2,"quantity":5}},{"id":2,"product":{"prodictId":2,"quantity":5}},{"id":3,"product":{"prodictId":2,"quantity":5}},{"id":4,"product":{"prodictId":2,"quantity":5}}]
+[{"id":1,"product":[{"prodictId":2,"quantity":1}]},{"id":2,"product":[{"prodictId":2,"quantity":1}]},{"id":3,"product":[{"prodictId":2,"quantity":1},{"prodictId":3,"quantity":3},{"prodictId":3,"quantity":2},{"prodictId":3,"quantity":1}]},{"id":4,"product":[{"prodictId":2,"quantity":1}]},{"id":5,"product":[{"prodictId":2,"quantity":1}]}]

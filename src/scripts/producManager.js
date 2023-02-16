@@ -115,45 +115,40 @@ class ProductManager {
             await this.fsPreaparandoDirecttorios();
             await this.getProduct();
 
-            this.products.map(async(elem)=>{
-                if(elem.id === id && id > 0){
-                    console.log("Producto a actualizar :");
-                    console.log(this.products[id-1]);
+            this.products.map((elem)=>{
+                if(elem.id === id){
+                  let keysElem = Object.keys(elem)
 
-                    let keys = Object.keys(this.products[id-1])
-                    
-                    keys.map((elem)=>{
-                        if(elem===param){
-                            
-                            if(elem==="titulo"){
-                                this.products[id-1].titulo=valor
-                            }
-                            if(elem==="descripcion"){
-                                this.products[id-1].descripcion=valor
-                            }
-                            if(elem==="price"){
-                                this.products[id-1].price=valor
-                            }
-                            if(elem==="url"){
-                                this.products[id-1].url=valor
-                            }
-                            if(elem==="code"){
-                                this.products[id-1].code=valor
-                            }
-                            if(elem==="sotck"){
-                                this.products[id-1].code=sotck
-                            }
+                  for (let i = 0; i < keysElem.length; i++) {
+                      if(keysElem[i] === param){
+                       
+                        if(param==="title"){
+                            elem.title=valor
                         }
-                    })                        
+                        if(param==="descripction"){
+                            elem.descripction=valor
+                        }
+                        if(param==="code"){
+                            elem.code=valor
+                        }
+                        if(param==="status"){
+                            elem.status=valor
+                        }
+                        if(param==="sotck"){
+                            elem.sotck=valor
+                        }
+                        if(param==="category"){
+                            elem.category=valor
+                        }
+                        if(param==="thumbnails"){
+                            elem.thumbnails=valor
+                        }
+                    }
+                  }
                 }
             })
 
-            console.log("Producto actualizado");
-            console.log(this.products[id-1]);
-            console.log("Lista actualizada:");
-            console.log(this.products);
-
-
+            console.log(`Se modifico ${param}: ${valor} del producto ${id}`);
             await this.fileSystem.promises.writeFile(this.productsFilePath, JSON.stringify(this.products));
 
             
