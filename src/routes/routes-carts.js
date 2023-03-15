@@ -1,6 +1,6 @@
 import {Router} from 'express'
 
-import cartManager from '../scripts/cartManager.js'
+import cartManager from '../Dao/scripts/cartManager.js'
 
 let cart = new cartManager()
 

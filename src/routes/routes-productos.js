@@ -1,12 +1,14 @@
 import {Router} from 'express'
 
-import ProductManager from '../scripts/producManager.js'
+import ProductManager from '../Dao/scripts/producManager.js'
 
 let productos = new ProductManager()
 
 
 
 const routerProductos = Router()
+
+
 
 routerProductos.get("/",async(req,res)=>{
     let limit = req.query.limit
