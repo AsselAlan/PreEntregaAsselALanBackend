@@ -15,6 +15,7 @@ Proyecto de backend desarrollado como parte del curso de **Backend en CoderHouse
 
 ## 📁 Estructura del proyecto
 
+```bash
 📦src
 ┣ 📂config # Configuraciones de base de datos y Passport
 ┣ 📂controllers # Lógica de negocios
@@ -26,11 +27,7 @@ Proyecto de backend desarrollado como parte del curso de **Backend en CoderHouse
 ┣ 📂services # Lógica reutilizable (como hashing, auth)
 ┣ 📂utils # Herramientas auxiliares (logs, errores)
 ┗ 📜app.js # Inicialización del servidor Express
-
-markdown
-Copiar
-Editar
-
+```
 ## 🔐 Autenticación y sesiones
 
 - Registro y login con Passport (estrategia local y JWT).
